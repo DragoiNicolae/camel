@@ -320,6 +320,17 @@ is only a single endpoint that does not support concurrent consumers.
 
 The FTP producer does *not* have this issue, it supports concurrency.
 
+== Using proxy
+
+The default FTP client used by the FTP component doesn't know how to work with proxy, 
+to avoid this issue you can override the used FTP Client with one that knows how to work with proxy.
+[source,java]
+----
+//you have to add the ftp client either to the registry or as a Spring bean
+registry.put("myFtpClient", new FTPHTTPClient(proxyHost, proxyPort)) // org.apache.commons.net.ftp.FTPHTTPClient
+from("ftp://user@host/path/?password=pass&ftpClient=#myFtpClient")
+----
+
 == More information
 
 This component is an extension of the File component.
